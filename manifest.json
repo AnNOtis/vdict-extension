@@ -1,0 +1,21 @@
+{
+  "name": "V-dict",
+  "version": "0.1.0",
+  "manifest_version": 2,
+  "description": "Quickly search with 'vocabulary.com'.",
+  "icons": { "128": "images/icon.png" },
+  "permissions": [
+    "contextMenus",
+    "tabs"
+  ],
+  "background": {
+    "scripts": ["background.js"]
+  },
+  "content_scripts": [
+    {
+      "matches": ["*://*/*"],
+      "css": ["content-script.css"],
+      "js": ["content-script.js"]
+    }
+  ]
+}

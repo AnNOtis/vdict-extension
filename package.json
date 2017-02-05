@@ -1,0 +1,18 @@
+{
+  "name": "vdict-extension",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "scripts": {
+    "test": "xo"
+  },
+  "devDependencies": {
+    "xo": "^0.17.1"
+  },
+  "xo": {
+    "space": 2,
+    "semicolon": false,
+    "envs": ["browser"],
+    "globals": ["chrome"]
+  }
+}
