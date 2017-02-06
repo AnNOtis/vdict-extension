@@ -1,18 +1,23 @@
-chrome.contextMenus.create({title: 'search it!', onclick: handleSearch, contexts: ['selection']})
+// chrome.contextMenus.create({title: 'V-Dict', onclick: handleSearch, contexts: ['selection']})
+chrome.runtime.onMessage.addListener((message, sender) => {
+  if (message.type === 'getSelection') {
+    handleSearch(message.anchorId, message.value, sender)
+  }
+})
 
-function handleSearch(info, tab) {
-  var selection = info.selectionText
-  var resultId = randomHash()
+function handleSearch(anchorId, term, sender) {
+  var tab = sender.tab
+  var selection = term
 
-  startSearch(tab, resultId)
+  startSearch(tab, anchorId)
 
   searchDict(selection)
     .then(parseResult)
-    .then(sendResult(tab, resultId))
+    .then(sendResult(tab, anchorId))
 }
 
-function startSearch(tab, resultId) {
-  chrome.tabs.sendMessage(tab.id, {type: 'startSearch', resultId: resultId})
+function startSearch(tab, anchorId) {
+  chrome.tabs.sendMessage(tab.id, {type: 'startSearch', anchorId: anchorId})
 }
 
 function searchDict(term) {
@@ -66,12 +71,8 @@ function parseMeanings(raw) {
   )
 }
 
-function sendResult(tab, resultId) {
+function sendResult(tab, anchorId) {
   return function (result) {
-    chrome.tabs.sendMessage(tab.id, {type: 'result', query: result, resultId: resultId})
+    chrome.tabs.sendMessage(tab.id, {type: 'result', query: result, anchorId: anchorId})
   }
-}
-
-function randomHash() {
-  return Math.floor(Math.random() * 16777215).toString(16)
 }

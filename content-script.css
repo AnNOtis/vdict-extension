@@ -21,3 +21,37 @@
   border-left: 3px solid transparent;
   border-right: 3px solid transparent;
 }
+
+.vd-search-anchor {
+  position: absolute;
+  z-index: 999999;
+  cursor: pointer;
+}
+
+.vd-tip {
+  position: absolute;
+  bottom: -26px;
+  right: -26px;
+  display: block;
+  width: 24px;
+  height: 24px;
+  background-repeat: none;
+  background-size: cover;
+  border-radius: 8px;
+  border-top-left-radius: 0px;
+  opacity: 0.5;
+  transition: 0.3s opacity;
+  cursor: pointer;
+}
+
+.vd-tip:hover {
+  opacity: 1;
+  box-shadow: 1px 1px 0 0 rgba(0,0,0,0.3);
+}
+
+.vd-tip:active {
+  opacity: 1;
+  bottom: -27px;
+  right: -27px;
+  box-shadow: none;
+}
