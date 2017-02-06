@@ -14,8 +14,8 @@
   "content_scripts": [
     {
       "matches": ["*://*/*"],
-      "css": ["content-script.css"],
-      "js": ["content-script.js"]
+      "css": ["vendors/drop.min.css", "vendors/drop-theme-basic.css", "vendors/drop-theme-arrows-bounce.css", "content-script.css"],
+      "js": ["vendors/tether.min.js", "vendors/drop.min.js", "content-script.js"]
     }
   ]
 }

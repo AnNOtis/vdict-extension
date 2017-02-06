@@ -2,8 +2,17 @@ chrome.contextMenus.create({title: 'search it!', onclick: handleSearch, contexts
 
 function handleSearch(info, tab) {
   var selection = info.selectionText
+  var resultId = randomHash()
+
+  startSearch(tab, resultId)
+
   searchDict(selection)
-    .then(sendResult(tab))
+    .then(parseResult)
+    .then(sendResult(tab, resultId))
+}
+
+function startSearch(tab, resultId) {
+  chrome.tabs.sendMessage(tab.id, {type: 'startSearch', resultId: resultId})
 }
 
 function searchDict(term) {
@@ -13,18 +22,21 @@ function searchDict(term) {
 
   return fetch(`https://www.vocabulary.com/dictionary/definition.ajax?search=${term}&lang=en`)
     .then(response => response.text())
-    .then(parseResult)
 }
 
 function parseResult(resultHTML) {
   var el = document.createElement('html')
   el.innerHTML = resultHTML
   var defEl = el.querySelector('.definitionsContainer')
-  var shortDef = defEl.querySelector('.main .section .short').innerHTML
-  var longDef = defEl.querySelector('.main .section .long').innerHTML
+  var shortDef = defEl.querySelector('.main .section .short')
+  var longDef = defEl.querySelector('.main .section .long')
   var meanings = parseMeanings(defEl)
 
-  return {shortDef, longDef, meanings}
+  return {
+    shortDef: (shortDef && shortDef.innerHTML) || '',
+    longDef: (longDef && longDef.innerHTML) || '',
+    meanings
+  }
 }
 
 function parseMeanings(raw) {
@@ -52,8 +64,12 @@ function parseMeanings(raw) {
   )
 }
 
-function sendResult(tab) {
+function sendResult(tab, resultId) {
   return function (result) {
-    chrome.tabs.sendMessage(tab.id, {type: 'result', query: result})
+    chrome.tabs.sendMessage(tab.id, {type: 'result', query: result, resultId: resultId})
   }
+}
+
+function randomHash() {
+  return Math.floor(Math.random() * 16777215).toString(16)
 }
