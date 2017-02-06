@@ -27,12 +27,14 @@ function searchDict(term) {
 function parseResult(resultHTML) {
   var el = document.createElement('html')
   el.innerHTML = resultHTML
+  var wordElem = el.querySelector('.centeredContent h1.dynamictext')
   var defEl = el.querySelector('.definitionsContainer')
   var shortDef = defEl.querySelector('.main .section .short')
   var longDef = defEl.querySelector('.main .section .long')
   var meanings = parseMeanings(defEl)
 
   return {
+    word: (wordElem && wordElem.innerHTML) || '',
     shortDef: (shortDef && shortDef.innerHTML) || '',
     longDef: (longDef && longDef.innerHTML) || '',
     meanings

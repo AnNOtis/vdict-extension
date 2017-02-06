@@ -19,9 +19,9 @@ function loadingResult(resultId) {
 
 function showResult(resultId, result) {
   var cached = dropdownCached[resultId]
-  var dropdown = new Drop({
+  new Drop({
     target: cached.elem,
-    content: result.shortDef,
+    content: result.word ? `<strong>${result.word}</strong><p>${result.shortDef}</p>` : '<strong>No result</strong>',
     openOn: 'hover',
     classes: 'drop-theme-arrows-bounce'
   }).open()
