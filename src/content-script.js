@@ -1,3 +1,5 @@
+import Drop from 'tether-drop'
+
 var cached = {}
 
 document.addEventListener('mouseup', function (event) {
@@ -107,8 +109,8 @@ function handleResult(searchId, result) {
   new Drop({
     target: word,
     content: result.word ? `<strong>${result.word}</strong><p>${result.shortDef}</p>` : '<strong>No result</strong>',
-    openOn: 'hover',
-    classes: 'drop-theme-arrows-bounce'
+    // openOn: 'hover',
+    classes: 'drop-theme-vdict vd-card'
   }).open()
 }
 

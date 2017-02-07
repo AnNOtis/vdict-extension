@@ -1,0 +1,67 @@
+@import drop-theme-vdict
+
+.drop-element
+  position: relative
+  min-width: 50px
+  max-width: 300px
+
+.vd-word-wrapper
+  position: relative
+
+  &.is-searched:after
+    content: ''
+    position: absolute
+    top: -3px
+    right: -3px
+    display: block
+    transform: rotateZ(30deg)
+    width: 0
+    height: 0
+    border-top: 8px solid #92cb9b
+    border-left: 3px solid transparent
+    border-right: 3px solid transparent
+
+.vd-search-anchor
+  position: absolute
+  z-index: 999999
+  cursor: pointer
+
+.vd-tip
+  position: absolute
+  bottom: -26px
+  right: -26px
+  display: block
+  width: 24px
+  height: 24px
+  background-repeat: none
+  background-size: cover
+  border-radius: 8px
+  border-top-left-radius: 0px
+  opacity: 0.5
+  transition: 0.3s opacity
+  cursor: pointer
+
+  &:hover
+    opacity: 1
+    box-shadow: 1px 1px 0 0 rgba(0,0,0,0.3)
+
+  &:active
+    opacity: 1
+    bottom: -27px
+    right: -27px
+    box-shadow: none
+
+.vd-card.vd-card.vd-card.vd-card
+  .drop-content
+    border: 1px solid #EEE
+    background-color: white
+
+    .vd-word
+
+    .vd-definition
+
+    .vd-description
+
+    .vd-subtitle
+
+    .vd-meaning
