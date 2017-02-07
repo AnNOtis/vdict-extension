@@ -13,6 +13,6 @@
     "space": 2,
     "semicolon": false,
     "envs": ["browser"],
-    "globals": ["chrome"]
+    "globals": ["chrome", "Drop"]
   }
 }

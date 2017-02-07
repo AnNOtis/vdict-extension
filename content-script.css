@@ -4,11 +4,11 @@
   max-width: 300px;
 }
 
-.vd-searched {
+.vd-word-wrapper {
   position: relative
 }
 
-.vd-searched:after {
+.vd-word-wrapper.is-searched:after {
   content: '';
   position: absolute;
   top: -3px;

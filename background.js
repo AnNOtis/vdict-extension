@@ -1,23 +1,22 @@
 // chrome.contextMenus.create({title: 'V-Dict', onclick: handleSearch, contexts: ['selection']})
 chrome.runtime.onMessage.addListener((message, sender) => {
-  if (message.type === 'getSelection') {
-    handleSearch(message.anchorId, message.value, sender)
+  if (message.type === 'search') {
+    handleSearch(message.searchId, message.term, sender)
   }
 })
 
-function handleSearch(anchorId, term, sender) {
+function handleSearch(searchId, term, sender) {
   var tab = sender.tab
-  var selection = term
 
-  startSearch(tab, anchorId)
+  startSearch(tab, searchId)
 
-  searchDict(selection)
+  searchDict(term)
     .then(parseResult)
-    .then(sendResult(tab, anchorId))
+    .then(sendResult(tab, searchId))
 }
 
-function startSearch(tab, anchorId) {
-  chrome.tabs.sendMessage(tab.id, {type: 'startSearch', anchorId: anchorId})
+function startSearch(tab, searchId) {
+  chrome.tabs.sendMessage(tab.id, {type: 'startSearch', searchId: searchId})
 }
 
 function searchDict(term) {
@@ -32,6 +31,11 @@ function searchDict(term) {
 function parseResult(resultHTML) {
   var el = document.createElement('html')
   el.innerHTML = resultHTML
+
+  if (el.querySelector('.noresults')) {
+    return {}
+  }
+
   var wordElem = el.querySelector('.centeredContent h1.dynamictext')
   var defEl = el.querySelector('.definitionsContainer')
   var shortDef = defEl.querySelector('.main .section .short')
@@ -71,8 +75,8 @@ function parseMeanings(raw) {
   )
 }
 
-function sendResult(tab, anchorId) {
+function sendResult(tab, searchId) {
   return function (result) {
-    chrome.tabs.sendMessage(tab.id, {type: 'result', query: result, anchorId: anchorId})
+    chrome.tabs.sendMessage(tab.id, {type: 'searchResult', result: result, searchId: searchId})
   }
 }
