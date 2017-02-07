@@ -36,7 +36,6 @@ gulp.task('copy', function () {
 
 gulp.task('watch', function () {
   gulp.watch(paths.scripts, ['scripts'])
-  gulp.watch(paths.images, ['images'])
   gulp.watch(paths.sass, ['sass'])
 })
 

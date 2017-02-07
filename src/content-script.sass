@@ -1,5 +1,12 @@
 @import drop-theme-vdict
 
+$c-primary: #3C727F
+$c-primary-light: #568C99
+$c-secondary-light: #B8E986
+
+$f-serif: 'Times New Roman', serif
+$f-sans-serif: Lato, sans-serif
+
 .drop-element
   position: relative
   min-width: 50px
@@ -53,15 +60,111 @@
 
 .vd-card.vd-card.vd-card.vd-card
   .drop-content
+    position: relative
     border: 1px solid #EEE
     background-color: white
+    padding: 0
+    width: 300px
+    height: 400px
+    overflow: hidden
+    .drop-content-wrapper
+      position: absolute
+      width: 314px
+      height: 100%
+      overflow-y: auto
+      padding: 0 16px
+      padding-right: 28px
+      padding-bottom: 16px
+      line-height: 1.2
+      left: 0
 
     .vd-word
+      color: $c-primary
+      font-size: 24px
+      margin: 16px 0 8px 0
 
     .vd-definition
+      margin: 16px 0
+      font-size: 16px
+      color: #555
+      font-family: $f-serif
+      i
+        color: $c-primary-light
 
     .vd-description
+      font-family: $f-serif
+      font-size: 12px
+      color: #777
+      border-left: 4px solid $c-secondary-light
+      padding: 16px 0 16px 32px
+      margin-left: -16px
+      line-height: 19px
+      font-weight: 100
 
     .vd-subtitle
+      display: block
+      line-height: 24px
+      font-size: 18px
+      color: #AAA
+      margin: 16px 0
+      margin-left: -4px
+      font-style: italic
+      font-weight: 100
+      font-family: $f-sans-serif
+      text-align: center
+
+    .vd-meanings:not(:last-child):after
+      display: block
+      content: ''
+      width: 50%
+      height: 1px
+      background-color: #EEE
+      margin: 24px auto
 
     .vd-meaning
+      margin: 16px 0
+
+      .vd-meaning-description
+        margin: 4px 0
+        font-size: 14px
+        font-family: $f-serif
+        color: #777
+
+        .vd-pos
+          float: left
+          margin-right: 6px
+          display: inline-block
+          line-height: 14px
+          font-size: 12px
+          padding: 0 6px 0 4px
+          font-weight: 300
+          font-style: italic
+          font-family: monospace
+          color: white
+          background-color: $c-primary
+          border-radius: 3px
+          opacity: 1
+
+          &.vd-pos--n
+            background-color: #E3412F
+          &.vd-pos--v
+            background-color: #539007
+          &.vd-pos--adj
+            background-color: #F8B002
+          &.vd-pos--adv
+            background-color: #684B9D
+
+      .vd-meaning-example
+        font-family: $f-sans-serif
+        font-weight: 300
+        font-style: italic
+        font-size: 12px
+        color: #797979
+        margin: 6px 10px
+        padding: 4px 0 4px 12px
+        border-left: 2px solid #EEE
+
+        strong
+          background: none
+          color: $c-primary-light
+          font-weight: inherit

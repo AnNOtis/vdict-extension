@@ -69,7 +69,7 @@ function parseMeanings(raw) {
           id: posElem.name,
           pos: posElem.innerHTML,
           meaning: (meaningElem && meaningElem.innerText.trim()) || null,
-          exmaple: (exampleElem && exampleElem.innerHTML) || null
+          example: (exampleElem && exampleElem.innerHTML) || null
         }
       })
   )

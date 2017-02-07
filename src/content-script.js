@@ -108,12 +108,47 @@ function handleResult(searchId, result) {
   word.classList.add('is-searched')
   new Drop({
     target: word,
-    content: result.word ? `<strong>${result.word}</strong><p>${result.shortDef}</p>` : '<strong>No result</strong>',
+    content: result.word ? resultTemplate(result) : '<strong>No result</strong>',
     // openOn: 'hover',
+    position: 'right bottom',
     classes: 'drop-theme-vdict vd-card'
   }).open()
 }
 
 function randomHash() {
   return Math.floor(Math.random() * 16777215).toString(16)
+}
+
+function resultTemplate(result) {
+  const output =
+    '<div class="vd-word">' + result.word + '</div>' +
+    '<div class="vd-definition">' + result.shortDef + '</div>' +
+    '<div class="vd-description">' + result.longDef + '</div>' +
+    '<div class="vd-subtitle">Meanings</div>' + result.meanings.map(meaningTemplate).join('')
+
+  return `<div class="drop-content-wrapper">${output}</div>`
+}
+
+function meaningTemplate(meaning) {
+  const output =
+    meaning.map(item =>
+      '<div class="vd-meaning">' +
+        `<div class="vd-meaning-description">` +
+          `<div id="${item.id}" class="vd-pos vd-pos--${item.pos}">` +
+            item.pos +
+          '</div>' +
+          item.meaning +
+        '</div>' +
+        exampleTemplate(item.example) +
+      '</div>'
+    ).join('')
+  return `<div class="vd-meanings">${output}</div>`
+}
+
+function exampleTemplate(example) {
+  if (example) {
+    return `<div class="vd-meaning-example">${example}</div>`
+  }
+
+  return ''
 }
